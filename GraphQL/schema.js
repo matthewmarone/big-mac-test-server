@@ -16,7 +16,7 @@ const typeDefs = gql`
     id: ID! # Same as ipv4
     ipv4: String!
     country: String!
-    city: String!
+    city: String
   }
   type BigMacIndex {
     # Models a single line of the big-mac-indx.csv file

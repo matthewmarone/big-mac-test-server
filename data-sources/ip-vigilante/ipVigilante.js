@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const instance = axios.create({
   baseURL: "https://ipvigilante.com/",
-  timeout: 5000,
+  timeout: 9000,
 });
 
 /**
@@ -13,6 +13,7 @@ const instance = axios.create({
  *
  */
 const getLocation = async (ip) => {
+  // if(!ip || (typeof ip === "string"))
   try {
     const {
       data: { data, status },
@@ -20,10 +21,10 @@ const getLocation = async (ip) => {
 
     if (status !== "success")
       throw new Error(`Could not lookup location info for ip address: ${ip}`);
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     throw e;
   }
 };

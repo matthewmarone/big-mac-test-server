@@ -1,10 +1,15 @@
 {
   "name": "bigmac-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "A GraphQL server to resolve ipVigilante and the big-mac-indx.csv",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthewmarone/big-mac-test-server.git"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +18,9 @@
     "apollo-server": "^2.18.1",
     "axios": "^0.20.0",
     "graphql": "^15.3.0"
+  },
+  "devDependencies": {
+    "apollo-server-testing": "^2.18.1",
+    "jest": "^26.4.2"
   }
 }

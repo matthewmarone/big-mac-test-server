@@ -8,6 +8,7 @@ const resolvers = {
   Query: {
     // Resolves the request and response from ip-vigilante
     getLocation: async (parent, args, context, info) => {
+      if (!args.ip) throw new Error("Missing vaild ipv4 addresss");
       const {
         ipv4,
         country_name: country,
