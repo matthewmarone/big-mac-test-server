@@ -1,6 +1,6 @@
 var fs = require("fs").promises;
 const path = require("path");
-// File is grouped by Country, and sorted by date descending
+// File must be grouped by Country, and sorted by date descending
 const relFilePath = "./data-set/big-mac-index.csv";
 const fileEncoding = "utf8";
 const endOfLine = "\r\n";
