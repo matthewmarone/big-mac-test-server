@@ -8,7 +8,7 @@ Jump to:
 - [Install and Run](#install-and-run)
 - [Available Scripts](#available-scripts)
 
-The following server was built with Node and [Apollo Server](https://www.apollographql.com/docs/apollo-server/), an industry leading GraphQl web server.
+The following server was built with Node and uses [Apollo Server](https://www.apollographql.com/docs/apollo-server/), an industry leading GraphQl web server. The React Client for this server is [here](https://github.com/matthewmarone/bigmac-client).
 
 ## About the Server
 
