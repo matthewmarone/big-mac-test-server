@@ -30,7 +30,7 @@ The API defines four queries:
 
 A properly written client, with a persisted cache, would only need to request **getLocation** and **listLatestBigMacIndex** just one time. The client would then have enough data to run its calculations.
 
-However, it could be advantageous for that first load to make asynchronous calls to the smaller queries until the cache has been fully hydrated.
+However, it could be advantageous on that first visit to make asynchronous calls to the smaller queries until the cache has been fully hydrated.
 
 This example [client](https://github.com/matthewmarone/bigmac-client) follows the above suggested design.
 
