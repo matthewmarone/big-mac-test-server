@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,8 @@
   },
   "devDependencies": {
     "apollo-server-testing": "^2.18.1",
+    "eslint": "^7.10.0",
+    "eslint-plugin-jest": "^24.1.0",
     "jest": "^26.4.2"
   }
 }

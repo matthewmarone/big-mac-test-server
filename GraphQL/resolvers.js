@@ -7,7 +7,7 @@ const BigMacIndex = require("../data-sources/big-mac-index");
 const resolvers = {
   Query: {
     // Resolves the request and response from ip-vigilante
-    getLocation: async (parent, args, context, info) => {
+    getLocation: async (parent, args) => {
       const {
         ipv4,
         country_name: country,
@@ -33,7 +33,7 @@ const resolvers = {
     // for a single country.  Note, the client won't actuall call this
     // as long as a successfull listLatestBigMacIndex has been called
     // and cached first.
-    getLatestBigMacIndex: async (parent, args, context, info) => {
+    getLatestBigMacIndex: async (parent, args) => {
       const bmIdx = await BigMacIndex.getLatestIndex([args.country]);
       const [retVal] = bmIdx[args.country] || [];
       if (retVal) retVal.id = `${args.country}#LATEST`;

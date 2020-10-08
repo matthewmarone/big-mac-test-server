@@ -3,82 +3,52 @@
  */
 
 const query = require("./testClientAndServer");
+// eslint-disable-next-line no-unused-vars
 const prettyFormat = require("pretty-format");
+const {
+  allCountries,
+  fullIndexList,
+  venezuelaIndex,
+} = require("./knownResults");
 
 const listSupportedCountries = `
-query listSupportedCountries{
-    listSupportedCountries{
+  query listSupportedCountries{
+      listSupportedCountries{
+        id
+        countries
+      }
+    }
+`;
+const listLatestBigMacIndex = `
+query listLatestBigMacIndex{
+  listLatestBigMacIndex{
+    id
+    country
+    date
+    localPrice
+    dollarExchange
+    dollarPrice
+    dollarPPP
+    dollarValuation
+  }
+}
+`;
+const getLatestBigMacIndex = `
+  query getLatestBigMacIndex($country: String!){
+    getLatestBigMacIndex(country: $country){
       id
-      countries
+      country
+      date
+      localPrice
+      dollarExchange
+      dollarPrice
+      dollarPPP
+      dollarValuation
     }
   }
 `;
 
-/**
- * All supported countries in the big-mac-index.csv
- */
-const allCountries = [
-  "Argentina",
-  "Australia",
-  "Austria",
-  "Belgium",
-  "Brazil",
-  "Britain",
-  "Canada",
-  "Chile",
-  "China",
-  "Colombia",
-  "Costa Rica",
-  "Czech Republic",
-  "Denmark",
-  "Egypt",
-  "Estonia",
-  "Euro area",
-  "Finland",
-  "France",
-  "Germany",
-  "Greece",
-  "Hong Kong",
-  "Hungary",
-  "India",
-  "Indonesia",
-  "Ireland",
-  "Israel",
-  "Italy",
-  "Japan",
-  "Latvia",
-  "Lithuania",
-  "Malaysia",
-  "Mexico",
-  "Netherlands",
-  "New Zealand",
-  "Norway",
-  "Pakistan",
-  "Peru",
-  "Philippines",
-  "Poland",
-  "Portugal",
-  "Russia",
-  "Saudi Arabia",
-  "Singapore",
-  "South Africa",
-  "South Korea",
-  "Spain",
-  "Sri Lanka",
-  "Sweden",
-  "Switzerland",
-  "Taiwan",
-  "Thailand",
-  "Turkey",
-  "UAE",
-  "Ukraine",
-  "United States",
-  "Uruguay",
-  "Venezuela",
-  "Vietnam",
-];
-
-test("Testing GraphQL query listSupportedCountries", async () => {
+test("Testing GraphQL query listLatestBigMacIndex", async () => {
   const {
     errors,
     data: {
@@ -87,7 +57,25 @@ test("Testing GraphQL query listSupportedCountries", async () => {
   } = await query({
     query: listSupportedCountries,
   });
-  //   console.log(prettyFormat(data));
   expect(errors).toEqual(undefined);
   expect(countries).toEqual(allCountries);
+});
+
+test("Testing GraphQL query listSupportedCountries", async () => {
+  const { errors, data } = await query({
+    query: listLatestBigMacIndex,
+  });
+  //   console.log(prettyFormat(data));
+  expect(errors).toEqual(undefined);
+  expect(data).toEqual(fullIndexList.data);
+});
+
+test("Testing GraphQL query getLatestBigMacIndex", async () => {
+  const { errors, data } = await query({
+    query: getLatestBigMacIndex,
+    variables: { country: "Venezuela" },
+  });
+  //   console.log(prettyFormat(data));
+  expect(errors).toEqual(undefined);
+  expect(data).toEqual(venezuelaIndex.data);
 });

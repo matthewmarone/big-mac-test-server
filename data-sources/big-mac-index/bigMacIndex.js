@@ -5,19 +5,15 @@ const relFilePath = "./data-set/big-mac-index.csv";
 const fileEncoding = "utf8";
 const endOfLine = "\r\n";
 
+/**
+ * Stores the big-max-index.csv as a map in memory and provides methods
+ * for conveniently and quickly looks up specific data.
+ */
 class BigMacIndex {
   constructor(filePath, encoding) {
     this.filePath = filePath;
     this.encoding = encoding;
-    this.dataMap = null;
-  }
-
-  /**
-   * Same as calling this.getIndex(null, 1)
-   * @see this.getIndex(countryFilterArray, entryLimit)
-   */
-  async getLatestIndex() {
-    return await this.getIndex(null, 1);
+    this.dataMap = null; // Loads first time it is needed
   }
 
   /**
@@ -29,11 +25,14 @@ class BigMacIndex {
   }
 
   /**
-   *
-   * @param {*} countryFilterArray
-   * @param {*} entryLimit
+   * 
+   * @param {*} countryFilterArray - any countries to exlude from the big-mac-index.csv
+   * @param {*} entryLimit - how far back in time you want to go, using 1 returns only the latest index for each country
    */
   async getIndex(countryFilterArray, entryLimit = Number.MAX_SAFE_INTEGER) {
+    if (countryFilterArray && !Array.isArray(countryFilterArray))
+      throw new Error("Expected array for countryFilterArray");
+
     const data = await this.getDataMap();
     const keys = countryFilterArray || data.keys();
     const retVal = {};
@@ -53,7 +52,7 @@ class BigMacIndex {
   }
 
   /**
-   *
+   * @returns an array set of each country supported in big-mac-index.csv
    */
   async getCountries() {
     const data = await this.getDataMap();
@@ -62,10 +61,13 @@ class BigMacIndex {
     return retVal;
   }
 
+  // Private getter for the in-memory map that is created after big-mac-index.csv
+  // is read into memory
   async getDataMap() {
     return this.dataMap || (await this.lazyLoadData());
   }
 
+  // Private method to instantiate dataMap
   async lazyLoadData() {
     try {
       const data = await fs.readFile(
@@ -125,20 +127,5 @@ class BigMacIndex {
 }
 
 const instance = new BigMacIndex(relFilePath, fileEncoding);
-// const test = async () => {
-//   //   await instance.print();
-//   //   const countries = await instance.getCountries();
-//   //   console.log(countries);
-// //   const allDate = await instance.getIndex([],1);
-//   const allDate = await instance.getLatestIndex();
-//   console.log(JSON.stringify(allDate, null, "\t"));
-// };
-
-// test();
-
-// /**
-//  * Returns the entire index of Big Mac prices for each country
-//  */
-// const getFullIndex = async () => {};
 
 module.exports = instance;

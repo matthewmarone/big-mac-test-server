@@ -1,5 +1,5 @@
 const axios = require("axios");
-const isIPv4 = require("helpers");
+const isIPv4 = require("../../helpers");
 
 const instance = axios.create({
   baseURL: "https://ipvigilante.com/",
@@ -15,6 +15,7 @@ const instance = axios.create({
  */
 const getLocation = async (ip) => {
   if (!isIPv4(ip)) throw new Error("Invalid ipv4 addresss");
+  // eslint-disable-next-line no-useless-catch
   try {
     const {
       data: { data, status },
