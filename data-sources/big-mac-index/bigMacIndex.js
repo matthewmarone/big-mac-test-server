@@ -26,11 +26,11 @@ class BigMacIndex {
 
   /**
    *
-   * @param {*} countryFilterArray - any countries to exlude from the big-mac-index.csv
+   * @param {*} countryFilterArray - The countries to include from the big-mac-index.csv, or null for all countries
    * @param {*} entryLimit - how far back in time you want to go, using 1 returns only the latest index for each country
-   * 
-   * @returns a map with each country as the key and the value is a list of 
-   *  each index for that country.  The value list is ordered by descending Date 
+   *
+   * @returns a map with each country as the key, and the value as a list of
+   *  each index for that country.  The value list is ordered by descending Date
    *  and will be of length >= entryLimit.
    */
   async getIndex(countryFilterArray, entryLimit = Number.MAX_SAFE_INTEGER) {
@@ -68,7 +68,7 @@ class BigMacIndex {
   /**
    * Private getter for the in-memory map that is created after big-mac-index.csv
    * is read into memory
-   * 
+   *
    * @returns a map where the key is the country and the value is an array
    *  of each line of the csv for that country, ordered by date desc.
    */
