@@ -6,76 +6,86 @@ const query = require("./testClientAndServer");
 // eslint-disable-next-line no-unused-vars
 const prettyFormat = require("pretty-format");
 const {
-  allCountries,
-  fullIndexList,
-  venezuelaIndex,
-} = require("./knownResults");
+  listLatestBigMacIndex,
+  listSupportedCountries,
+  getLatestBigMacIndex,
+} = require("./query");
 
-const listSupportedCountries = `
-  query listSupportedCountries{
-      listSupportedCountries{
-        id
-        countries
-      }
-    }
-`;
-const listLatestBigMacIndex = `
-query listLatestBigMacIndex{
-  listLatestBigMacIndex{
-    id
-    country
-    date
-    localPrice
-    dollarExchange
-    dollarPrice
-    dollarPPP
-    dollarValuation
-  }
-}
-`;
-const getLatestBigMacIndex = `
-  query getLatestBigMacIndex($country: String!){
-    getLatestBigMacIndex(country: $country){
-      id
-      country
-      date
-      localPrice
-      dollarExchange
-      dollarPrice
-      dollarPPP
-      dollarValuation
-    }
-  }
-`;
-
+/**
+ * There are no variables that this query takes, so this is the only
+ * test for listLatestBigMacIndex
+ */
 test("Testing GraphQL query listLatestBigMacIndex", async () => {
-  const {
-    errors,
-    data: {
-      listSupportedCountries: { countries },
-    },
-  } = await query({
-    query: listSupportedCountries,
-  });
-  expect(errors).toEqual(undefined);
-  expect(countries).toEqual(allCountries);
-});
-
-test("Testing GraphQL query listSupportedCountries", async () => {
   const { errors, data } = await query({
     query: listLatestBigMacIndex,
   });
-  //   console.log(prettyFormat(data));
-  expect(errors).toEqual(undefined);
-  expect(data).toEqual(fullIndexList.data);
+  
+  expect(errors).toBeUndefined();
+  expect(data).toMatchSnapshot();
 });
+/**
+ * There are no variables that this query takes, so this is the only
+ * test for listSupportedCountries
+ */
+test("Testing GraphQL query listSupportedCountries", async () => {
+  const { errors, data } = await query({
+    query: listSupportedCountries,
+  });
+  expect(errors).toBeUndefined();
+  expect(data).toMatchSnapshot();
+});
+
+// What follows are all the test cases for getLatestBigMacIndex
 
 test("Testing GraphQL query getLatestBigMacIndex", async () => {
   const { errors, data } = await query({
     query: getLatestBigMacIndex,
     variables: { country: "Venezuela" },
   });
-  //   console.log(prettyFormat(data));
-  expect(errors).toEqual(undefined);
-  expect(data).toEqual(venezuelaIndex.data);
+
+  expect(errors).toBeUndefined();
+  expect(data).toMatchSnapshot();
+});
+
+test("Testing GraphQL query getLatestBigMacIndex, with unsupported country", async () => {
+  const { errors, data } = await query({
+    query: getLatestBigMacIndex,
+    variables: { country: "Wakanda" },
+  });
+
+  expect(errors).toBeUndefined();
+  expect(data).toMatchSnapshot();
+});
+
+test("Testing GraphQL query getLatestBigMacIndex, with empty String", async () => {
+  const { errors, data } = await query({
+    query: getLatestBigMacIndex,
+    variables: { country: "" },
+  });
+
+  expect(errors).toBeUndefined();
+  expect(data).toMatchSnapshot();
+});
+
+// The next two requests would be blocked by the client before going to the server
+// because it violates the schema.  Country is required.
+
+test("Testing GraphQL query getLatestBigMacIndex, with null country", async () => {
+  const { errors, data } = await query({
+    query: getLatestBigMacIndex,
+    variables: { country: null },
+  });
+
+  expect(errors).toBeDefined();
+  expect(data).toBeUndefined(); // Becasue it violates the schema
+});
+
+test("Testing GraphQL query getLatestBigMacIndex, with undefined country", async () => {
+  const { errors, data } = await query({
+    query: getLatestBigMacIndex,
+    variables: { country: undefined },
+  });
+
+  expect(errors).toBeDefined();
+  expect(data).toBeUndefined(); // Becasue it violates the schema
 });

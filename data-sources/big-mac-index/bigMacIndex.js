@@ -6,8 +6,8 @@ const fileEncoding = "utf8";
 const endOfLine = "\r\n";
 
 /**
- * Stores the big-max-index.csv as a map in memory and provides methods
- * for conveniently and quickly looks up specific data.
+ * Stores the big-max-index.csv in memory as a map, providing methods
+ * for conveniently and quickly accessing its data.
  */
 class BigMacIndex {
   constructor(filePath, encoding) {
@@ -25,9 +25,13 @@ class BigMacIndex {
   }
 
   /**
-   * 
+   *
    * @param {*} countryFilterArray - any countries to exlude from the big-mac-index.csv
    * @param {*} entryLimit - how far back in time you want to go, using 1 returns only the latest index for each country
+   * 
+   * @returns a map with each country as the key and the value is a list of 
+   *  each index for that country.  The value list is ordered by descending Date 
+   *  and will be of length >= entryLimit.
    */
   async getIndex(countryFilterArray, entryLimit = Number.MAX_SAFE_INTEGER) {
     if (countryFilterArray && !Array.isArray(countryFilterArray))
@@ -52,7 +56,7 @@ class BigMacIndex {
   }
 
   /**
-   * @returns an array set of each country supported in big-mac-index.csv
+   * @returns an array listing each country supported in big-mac-index.csv
    */
   async getCountries() {
     const data = await this.getDataMap();
@@ -61,13 +65,19 @@ class BigMacIndex {
     return retVal;
   }
 
-  // Private getter for the in-memory map that is created after big-mac-index.csv
-  // is read into memory
+  /**
+   * Private getter for the in-memory map that is created after big-mac-index.csv
+   * is read into memory
+   * 
+   * @returns a map where the key is the country and the value is an array
+   *  of each line of the csv for that country, ordered by date desc.
+   */
   async getDataMap() {
     return this.dataMap || (await this.lazyLoadData());
   }
 
-  // Private method to instantiate dataMap
+  // Private method to setup dataMap
+  // Reads big-mac-index.csv and saves it to dataMap
   async lazyLoadData() {
     try {
       const data = await fs.readFile(

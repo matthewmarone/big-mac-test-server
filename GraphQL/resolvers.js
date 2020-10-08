@@ -15,7 +15,7 @@ const resolvers = {
       } = await getLocation(args.ip);
       return { id: ipv4, ipv4, country, city };
     },
-    // Resolves a request for each country's most recent big-mac-index
+    // Resolves a request for all countries' most recent big-mac-index
     listLatestBigMacIndex: async () => {
       const bmIdx = await BigMacIndex.getLatestIndex();
       const retVal = [];
@@ -32,7 +32,7 @@ const resolvers = {
     // This query allows for a returning the most recent Big Mac Index
     // for a single country.  Note, the client won't actuall call this
     // as long as a successfull listLatestBigMacIndex has been called
-    // and cached first.
+    // and cached in the client first.
     getLatestBigMacIndex: async (parent, args) => {
       const bmIdx = await BigMacIndex.getLatestIndex([args.country]);
       const [retVal] = bmIdx[args.country] || [];
@@ -47,10 +47,9 @@ const resolvers = {
   },
   BigMacIndex: {
     // Converts the date field from the big-mac-index.csv to
-    // Epoch seconds for any query returning type BigMacIndex
-    // or an array of type BigMacIndex
+    // Epoch seconds for any query containing type BigMacIndex
     date: (parent) => {
-      // In producton a date library may be necessary
+      // In producton a more robust date library may be preferred
       return Math.round(Date.parse(parent.date) / 1000);
     },
   },

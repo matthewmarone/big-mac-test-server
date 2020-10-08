@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing GraphQL query getLocation (ip-vigilate) with empty IP Address 1`] = `
+Object {
+  "getLocation": null,
+}
+`;
+
+exports[`Testing GraphQL query getLocation (ip-vigilate) with ip address 8.8.8.8 1`] = `
+Object {
+  "getLocation": Object {
+    "city": "Mountain View",
+    "country": "United States",
+  },
+}
+`;
+
+exports[`Testing GraphQL query getLocation (ip-vigilate) with ipv6 address 1`] = `
+Object {
+  "getLocation": null,
+}
+`;
+
+exports[`Testing GraphQL query getLocation (ip-vigilate) with local ip address (192.168.1.1) 1`] = `
+Object {
+  "getLocation": null,
+}
+`;
+
+exports[`Testing GraphQL query getLocation (ip-vigilate) with malformed ip address 14 8.102.115.177 1`] = `
+Object {
+  "getLocation": null,
+}
+`;
