@@ -32,4 +32,4 @@ Launches the server at [http://localhost:4000](http://localhost:4000). There is 
 
 ### `npm test`
 
-Launches a test server and runs all tests located in the servers test folder.
+Launches a test server and runs all tests.
