@@ -20,7 +20,7 @@ There are four querries this API offers:
 1. getLocation(ipv4: String!)
    - Essentially, ip-vigilante wrapped in GraphQL
 2. listLatestBigMacIndex
-   - Essentially, the entire contents of big-mac-index.csv filtering out every date but the most recent for each country
+   - Essentially, the entire contents of big-mac-index.csv, but filtered on date to only return the most recent (latest) index.
 3. getLatestBigMacIndex(country: String!)
    - The same as listLatestBigMacIndex but returns only data for one country
 4. listSupportedCountries
