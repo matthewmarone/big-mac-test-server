@@ -32,7 +32,7 @@ A properly written client, with a locally persisted cache, would only need to re
 
 However, it could be advantageous for that first load to make asynchronous calls to the smaller queries until the cache has been fully hydrated.
 
-This client [client](https://github.com/matthewmarone/bigmac-client) in an example of the above suggestion.
+This example [client](https://github.com/matthewmarone/bigmac-client) follows the above suggested design.
 
 ## Install and Run
 
