@@ -3,7 +3,7 @@ const isIPv4 = require("../../helpers");
 
 const instance = axios.create({
   baseURL: "https://ipvigilante.com/",
-  timeout: 9000,
+  timeout: 15000,
 });
 
 /**
