@@ -1,7 +1,7 @@
 const { createTestClient } = require("apollo-server-testing");
 const { ApolloServer } = require("apollo-server");
-const typeDefs = require("../GraphQL/schema");
-const resolvers = require("../GraphQL/resolvers");
+const typeDefs = require("../../schema");
+const resolvers = require("../../resolvers");
 
 // create a test server to test against, using our production typeDefs and
 // resolvers

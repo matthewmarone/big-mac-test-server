@@ -2,8 +2,8 @@
  * @jest-environment node
  */
 
-const query = require("./testClientAndServer");
-const { getLocation } = require("./query");
+const query = require("./test_modules/testClientAndServer");
+const { getLocation } = require("./test_modules/query");
 // eslint-disable-next-line no-unused-vars
 const prettyFormat = require("pretty-format");
 

@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 
-const isIPv4 = require("./../helpers");
+const isIPv4 = require("../helpers");
 
 it("is an IPv4 ('255.80.0.8')", () =>
   expect(isIPv4("255.80.0.8")).toBeTruthy());

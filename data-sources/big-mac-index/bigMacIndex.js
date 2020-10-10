@@ -79,61 +79,56 @@ class BigMacIndex {
   // Private method to setup dataMap
   // Reads big-mac-index.csv and saves it to dataMap
   async lazyLoadData() {
-    try {
-      const data = await fs.readFile(
-        path.resolve(__dirname, this.filePath),
-        fileEncoding
-      );
+    const data = await fs.readFile(
+      path.resolve(__dirname, this.filePath),
+      fileEncoding
+    );
 
-      const lines = data.split(endOfLine);
-      //   console.log(lines);
+    const lines = data.split(endOfLine);
+    //   console.log(lines);
 
-      const retVal = new Map();
+    const retVal = new Map();
 
-      lines.forEach((ln, idx) => {
-        if (idx > 0) {
-          const [
-            country,
-            date,
-            localPrice,
-            dollarExchange,
-            dollarPrice,
-            dollarPPP,
-            dollarValuation,
-          ] = ln.split(",");
+    lines.forEach((ln, idx) => {
+      if (idx > 0) {
+        const [
+          country,
+          date,
+          localPrice,
+          dollarExchange,
+          dollarPrice,
+          dollarPPP,
+          dollarValuation,
+        ] = ln.split(",");
 
-          // Get the existing mapped country array, or create and get a new one
-          const countryData =
-            retVal.get(country) || retVal.set(country, []).get(country);
+        // Get the existing mapped country array, or create and get a new one
+        const countryData =
+          retVal.get(country) || retVal.set(country, []).get(country);
 
-          // Update the mapped array
-          countryData[countryData.length] = {
-            country,
-            date,
-            localPrice,
-            dollarExchange,
-            dollarPrice,
-            dollarPPP,
-            dollarValuation,
-          };
-        }
-      });
+        // Update the mapped array
+        countryData[countryData.length] = {
+          country,
+          date,
+          localPrice,
+          dollarExchange,
+          dollarPrice,
+          dollarPPP,
+          dollarValuation,
+        };
+      }
+    });
 
-      this.dataMap = retVal;
-      return retVal;
-    } catch (e) {
-      console.error(e);
-      throw e;
-    }
+    this.dataMap = retVal;
+    return retVal;
   }
 
   /**
    * Created for testing.  Prints the dataMap instance var.
    */
-  async print() {
-    const str = await this.getDataMap();
-    console.log(str);
-  }
+  // async print() {
+  //   const str = await this.getDataMap();
+  //   console.log(str);
+  // }
 }
 
 const instance = new BigMacIndex(relFilePath, fileEncoding);

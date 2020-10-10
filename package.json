@@ -7,6 +7,12 @@
     "type": "git",
     "url": "https://github.com/matthewmarone/big-mac-test-server.git"
   },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/test_modules/"
+    ]
+  },
   "scripts": {
     "start": "node index.js",
     "test": "jest",

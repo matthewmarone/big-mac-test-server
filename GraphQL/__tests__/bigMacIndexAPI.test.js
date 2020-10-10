@@ -2,14 +2,14 @@
  * @jest-environment node
  */
 
-const query = require("./testClientAndServer");
+const query = require("./test_modules/testClientAndServer");
 // eslint-disable-next-line no-unused-vars
 const prettyFormat = require("pretty-format");
 const {
   listLatestBigMacIndex,
   listSupportedCountries,
   getLatestBigMacIndex,
-} = require("./query");
+} = require("./test_modules/query");
 
 /**
  * There are no variables that this query takes, so this is the only
